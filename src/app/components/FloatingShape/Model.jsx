@@ -1,20 +1,51 @@
-import { useGLTF } from '@react-three/drei';
+import {
+    MeshReflectorMaterial,
+    MeshTransmissionMaterial,
+    useGLTF,
+} from '@react-three/drei';
 import { Float } from '@react-three/drei';
 import { useTransform } from 'framer-motion';
-import { motion } from 'framer-motion-3d';
-import { NEXT_CACHE_REVALIDATE_TAG_TOKEN_HEADER } from 'next/dist/lib/constants';
+import { useFrame } from '@react-three/fiber';
+import { useRef, useEffect, useState } from 'react';
+import * as THREE from 'three'; // Import THREE.js
+import { MotionConfig, motion, MotionCanvas } from 'framer-motion-3d';
 
 const Model = ({ mouse }) => {
     const { nodes } = useGLTF('/media/floating_shapes4.glb');
     return (
         <Float>
-            <group>
-                <motion.Mesh
+            <motion.group
+                transparent
+                initial='hidden' // Use the "hidden" state for the initial
+                animate='visible' // Use the "visible" state for the animation
+                variants={{
+                    hidden: {
+                        scale: 0,
+                    },
+                    visible: {
+                        scale: 1,
+                        transition: {
+                            staggerChildren: 0.2, // Time between each child's animation
+                            duration: 1, // Animation duration for parent
+                        },
+                    },
+                }}
+            >
+                {/* <motion.mesh
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                        duration: 4,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
+                > */}
+                <Mesh
                     node={nodes.Sphere001}
                     multiplier={2.4}
                     mouse={mouse}
                     // isActive={activeShape == 1}
                 />
+                {/* </motion.mesh> */}
                 <Mesh
                     node={nodes.Sphere002}
                     multiplier={2.4}
@@ -33,12 +64,14 @@ const Model = ({ mouse }) => {
                     mouse={mouse}
                     // isActive={activeShape == 4}
                 />
+
                 <Mesh
                     node={nodes.Cylinder003}
                     multiplier={1.8}
                     mouse={mouse}
                     // isActive={activeShape == 5}
                 />
+
                 <Mesh
                     node={nodes.Cylinder005}
                     multiplier={1.8}
@@ -75,7 +108,7 @@ const Model = ({ mouse }) => {
                     mouse={mouse}
                     // isActive={activeShape == 11}
                 />
-            </group>
+            </motion.group>
         </Float>
     );
 };
@@ -91,6 +124,8 @@ function Mesh({ node, mouse, multiplier }) {
         scale,
     } = node;
 
+    console.log(scale);
+
     const rotationX = useTransform(
         mouse.x,
         [0, 1],
@@ -104,13 +139,22 @@ function Mesh({ node, mouse, multiplier }) {
     const positionX = useTransform(
         mouse.x,
         [0, 1],
-        [position.x - multiplier * 2, position.x + multiplier]
+        [position.x - multiplier * 4, position.x + multiplier * 4]
     );
     const positionY = useTransform(
         mouse.y,
         [0, 1],
-        [position.y + multiplier * 2, position.y - multiplier]
+        [position.y + multiplier * 4, position.y - multiplier * 4]
     );
+
+    const opacityVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+        transition: {
+            duration: 400, // Adjust duration as needed
+            ease: [0.22, 1, 0.36, 1], // Smooth bounce easing
+        },
+    };
 
     return (
         <motion.mesh
@@ -120,12 +164,20 @@ function Mesh({ node, mouse, multiplier }) {
             material={material}
             position={position}
             rotation={rotation}
-            scale={scale}
             rotation-x={rotationY}
             rotation-y={rotationX}
             position-x={positionX}
             position-y={positionY}
-        />
+            scale={scale}
+        >
+            <motion.meshStandardMaterial
+                color='blue'
+                transparent
+                initial='hidden'
+                animate='visible'
+                variants={opacityVariants}
+            />
+        </motion.mesh>
     );
 }
 
