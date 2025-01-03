@@ -15,22 +15,22 @@ function Mesh({ node, mouse, multiplier }) {
     const rotationX = useTransform(
         mouse.x,
         [0, 1],
-        [rotation.x - multiplier / 2, rotation.x + multiplier / 2]
+        [rotation.x - multiplier / 3, rotation.x + multiplier / 3]
     );
     const rotationY = useTransform(
         mouse.y,
         [0, 1],
-        [rotation.y - multiplier / 2, rotation.y + multiplier / 2]
+        [rotation.y - multiplier / 3, rotation.y + multiplier / 3]
     );
     const positionX = useTransform(
         mouse.x,
         [0, 1],
-        [position.x - multiplier * 4, position.x + multiplier * 4]
+        [position.x - multiplier * 5, position.x + multiplier * 5]
     );
     const positionY = useTransform(
         mouse.y,
         [0, 1],
-        [position.y + multiplier * 4, position.y - multiplier * 4]
+        [position.y + multiplier * 5, position.y - multiplier * 5]
     );
 
     const materialVariants = {
@@ -53,7 +53,8 @@ function Mesh({ node, mouse, multiplier }) {
             scale={scale}
         >
             <motion.meshStandardMaterial
-                color='#791740'
+                // color='#791740'
+                color='blue'
                 transparent
                 variants={materialVariants} // Opacity animation on material
                 initial='hidden'
