@@ -6,16 +6,11 @@ import { useIsMobile } from '../hooks/useIsMobile'; // Adjust the path as needed
 const Main = () => {
     const isMobile = useIsMobile();
     return (
-        <main className='flex  h-screen w-screen bg-rose-300  gap-8 row-start-2 items-center sm:items-start relative'>
+        <main className='flex  h-screen w-screen  gap-8 row-start-2 items-center sm:items-start relative'>
             <FloatingShape />
             <div className=' text-zinc-700 absolute w-screen flex flex-col justify-center items-center h-screen'>
                 {' '}
-                <h1 className=' font-bold text-5xl'>
-                    Error 404: page probably not found
-                </h1>
-                <h4 className=' text-2xl'>
-                    Do NOT scroll down, but if you must
-                </h4>
+                <h1 className=' font-bold text-5xl'>Home page: main content</h1>
                 <div>{isMobile ? 'Mobile' : 'Desktop'}</div>
                 {/* <Button /> */}
             </div>

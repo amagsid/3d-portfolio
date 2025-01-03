@@ -55,16 +55,12 @@ const FloatingShape = () => {
     }
 
     return (
-        <Canvas className=' bg-gray-300' orthographic>
+        <Canvas className=' bg-sky-200' orthographic>
             <CameraController isMobile={isMobile} />
             <Model mouse={smoothMouse} />
-
-            <Environment preset='studio' />
-            {/* <Environment preset='apartment' /> */}
-
-            {/* <Environment preset='dawn' /> */}
             {/* 
-            <Environment preset='warehouse' /> */}
+			change the preset to 'warehouse' for different lighting */}
+            <Environment preset='studio' />
         </Canvas>
     );
 };
