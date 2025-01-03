@@ -24,7 +24,7 @@ const Model = ({ mouse }) => {
     };
 
     const childVariants = {
-        hidden: { scale: 0, rotateY: 1.5 },
+        hidden: { scale: 0, rotateY: 0.5 },
         visible: {
             scale: 1,
             rotateY: 0,

@@ -55,6 +55,8 @@ function Mesh({ node, mouse, multiplier }) {
             <motion.meshStandardMaterial
                 // color='#791740'
                 color='blue'
+                // color='yellow'
+                // color='red'
                 transparent
                 variants={materialVariants} // Opacity animation on material
                 initial='hidden'
