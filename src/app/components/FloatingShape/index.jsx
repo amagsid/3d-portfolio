@@ -55,7 +55,7 @@ const FloatingShape = () => {
     }
 
     return (
-        <Canvas className=' bg-sky-200' orthographic>
+        <Canvas orthographic>
             <CameraController isMobile={isMobile} />
             <Model mouse={smoothMouse} />
             {/* 

@@ -25,6 +25,6 @@ body {
         text-wrap: balance;
     }
     .section-container {
-        @apply h-screen w-full px-60 py-10 flex justify-center items-center;
+        @apply h-screen w-full px-60 py-10 flex justify-center items-center border-y-2;
     }
 }

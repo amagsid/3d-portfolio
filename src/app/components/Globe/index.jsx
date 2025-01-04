@@ -5,11 +5,11 @@ const Globe = () => {
     return (
         <div className='text-black'>
             this is globewee
-            {/* <Canvas>
+            <Canvas>
                 <mesh>
-                    <sphereGometry />
+                    <sphereGeometry />
                 </mesh>
-            </Canvas> */}
+            </Canvas>
         </div>
     );
 };

@@ -8,18 +8,28 @@ const Main = () => {
     return (
         <main className='flex gap-8 row-start-2 items-center sm:items-start relative sm:h-[120vh] h-screen w-screen '>
             <FloatingShape />
-            <div className=' text-zinc-700 absolute w-screen flex flex-col justify-center items-center h-screen'>
-                <div className=' font-bold text-8xl text-center leading-[80%] mix-blend-color-dodge'>
-                    <h5 className='text-sm font-medium tracking-wide'>
+            <div className='  absolute w-screen flex flex-col justify-center items-center h-screen'>
+                <div
+                    className=' text-slate-500 font-bold text-8xl text-center leading-[80%]
+            
+                '
+                >
+                    <h5 className='text-sm font-medium tracking-[4px] text-pink-200'>
                         AHMAD SAEED
                     </h5>
-                    <h1>
+                    <h1
+                        className='         mix-blend-plus-lighter
+                    r'
+                    >
                         {' '}
                         MAKING <br /> GOOD <br /> SHIT <br /> SINCE <br /> 2009
                     </h1>
                 </div>
 
-                <div>{isMobile ? 'Mobile' : 'Desktop'}</div>
+                {/* <div>{isMobile ?
+                 'Mobile' : 'Desktop'}
+
+                </div> */}
                 {/* <Button /> */}
             </div>
         </main>
