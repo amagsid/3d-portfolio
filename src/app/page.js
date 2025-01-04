@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 export default function Home() {
     return (
         // <div className='overflow-y-scroll h-screen snap-y snap-mandatory '>
-        <div className='overflow-y-scroll h-screen  snap-mandatory bg-[#1b181f] text-white '>
+        <div className='overflow-y-scroll h-screen  snap-mandatory bg-zinc-950  text-white '>
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
             </div>

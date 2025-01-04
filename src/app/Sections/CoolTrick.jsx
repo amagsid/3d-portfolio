@@ -5,7 +5,7 @@ const CoolTrick = () => {
     return (
         <div className='section-container '>
             <Globe />
-            <h1>text</h1>
+            <h1>text placeholder</h1>
         </div>
     );
 };
