@@ -6,7 +6,7 @@ import { useIsMobile } from '../hooks/useIsMobile'; // Adjust the path as needed
 const Main = () => {
     const isMobile = useIsMobile();
     return (
-        <main className='flex  h-screen w-screen  gap-8 row-start-2 items-center sm:items-start relative'>
+        <main className='flex gap-8 row-start-2 items-center sm:items-start relative sm:h-[120vh] h-screen w-screen '>
             <FloatingShape />
             <div className=' text-zinc-700 absolute w-screen flex flex-col justify-center items-center h-screen'>
                 <div className=' font-bold text-8xl text-center leading-[80%] mix-blend-color-dodge'>
