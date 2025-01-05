@@ -46,7 +46,7 @@ const FloatingShape = () => {
                 camera.zoom = 3;
             } else {
                 camera.position.set(0, 0, 200); // Desktop camera settings
-                camera.zoom = 8;
+                camera.zoom = 7;
             }
             camera.updateProjectionMatrix(); // Notify Three.js of the changes
         }, [isMobile, camera]);

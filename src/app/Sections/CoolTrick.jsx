@@ -14,27 +14,24 @@ import {
 } from 'framer-motion';
 import { TextureLoader } from 'three';
 
-const CoolTrick = ({ scrollYProgress }) => {
-    const scroll = useRef(); // Ref for the scrollable div
+const CoolTrick = ({ globeParentScrollRef }) => {
+    const scrollRef = useRef(null); // Ref for CoolTrick component itself
+    const { scrollYProgress } = useScroll({
+        container: globeParentScrollRef, // Track scroll within parent container
+        target: scrollRef, // Track the scroll progress of the CoolTrick component
+        offset: ['start end', 'end start'], // When CoolTrick enters and exits the view
+    });
 
-    // const { scrollY } = useScroll({ container: scrollRef }); // Attach to custom container
-
-    // const { scrollYProgress } = useScroll({
-    //     container: scroll,
-    //     offset: ['start end', 'end start'], // Adjust scroll thresholds
-    // });
-
-    // useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    //     console.log('Scroll progress:', latest);
-    // });
+    useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+        console.log('Scroll progress:', latest);
+    });
 
     return (
         <div
-            ref={scroll}
-            className='section-container h-screen w-full flex flex-col overflow-y-scroll  '
+            ref={scrollRef}
+            className='section-container h-screen w-full flex flex-col relative  '
         >
-            <Globe scrollYProgress={scrollYProgress} />{' '}
-            {/* Add enough height for scrolling */}
+            <Globe scrollYProgress={scrollYProgress} />
             <h1>Text Placeholder</h1>
         </div>
     );
