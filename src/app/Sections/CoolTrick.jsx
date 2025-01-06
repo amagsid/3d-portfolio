@@ -1,18 +1,7 @@
 'use client';
-import React from 'react';
 import Globe from '../components/Globe';
-// import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion-3d';
-import { Canvas, useLoader } from '@react-three/fiber';
-import {
-    calcLength,
-    useScroll,
-    useTransform,
-    useMotionValueEvent,
-} from 'framer-motion';
-import { TextureLoader } from 'three';
+import { useScroll, useMotionValueEvent, useSpring } from 'framer-motion';
 
 const CoolTrick = ({ globeParentScrollRef }) => {
     const scrollRef = useRef(null); // Ref for CoolTrick component itself
@@ -26,12 +15,14 @@ const CoolTrick = ({ globeParentScrollRef }) => {
         console.log('Scroll progress:', latest);
     });
 
+    const smoothedScroll = useSpring(scrollYProgress, { damping: 20 });
+
     return (
         <div
             ref={scrollRef}
             className='section-container h-screen w-full flex flex-col relative  '
         >
-            <Globe scrollYProgress={scrollYProgress} />
+            <Globe scrollYProgress={smoothedScroll} />
             <h1>Text Placeholder</h1>
         </div>
     );
