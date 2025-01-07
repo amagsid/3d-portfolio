@@ -8,7 +8,7 @@ import {
     useMotionValueEvent,
 } from 'framer-motion';
 
-export default function index({ data, setSelectedProject }) {
+export default function index({ data, setSelectedProject, scrollYProgress }) {
     return (
         <div className={styles.titles}>
             {data.map((project, i) => {
@@ -17,6 +17,7 @@ export default function index({ data, setSelectedProject }) {
                         key={i}
                         data={{ ...project, i }}
                         setSelectedProject={setSelectedProject}
+                        scrollYProgress={scrollYProgress}
                     />
                 );
             })}
@@ -24,7 +25,7 @@ export default function index({ data, setSelectedProject }) {
     );
 }
 
-function Title({ data, setSelectedProject, globeParentScrollRef, scrollRef }) {
+function Title({ data, setSelectedProject, scrollYProgress }) {
     const { title, speed, i } = data;
     const container = useRef(null);
 
@@ -34,11 +35,11 @@ function Title({ data, setSelectedProject, globeParentScrollRef, scrollRef }) {
     //     offset: ['start end', `end start`],
     // });
 
-    const { scrollYProgress } = useScroll({
-        container: globeParentScrollRef,
-        target: container, // The element to track
-        offset: ['start end', `${25 / speed}vw end`],
-    });
+    // const { scrollYProgress } = useScroll({
+    //     container: globeParentScrollRef,
+    //     target: container, // The element to track
+    //     offset: ['start end', `${25 / speed}vw end`],
+    // });
 
     // const { scrollYProgress } = useScroll({
     //     container: globeParentScrollRef, // Track scroll within parent container
@@ -46,11 +47,11 @@ function Title({ data, setSelectedProject, globeParentScrollRef, scrollRef }) {
     //     offset: ['start end', `${25 / speed}vw end`],
     // });
 
-    useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-        console.log('Scroll progressssss:', latest);
-    });
+    // useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    //     console.log('Scroll progressssss:', latest);
+    // });
 
-    const clipProgress = useTransform(scrollYProgress, [0, 1], [100, 0]);
+    const clipProgress = useTransform(scrollYProgress, [0, 0.52], [100, 0]);
     const clip = useMotionTemplate`inset(0 ${clipProgress}% 0 0)`;
 
     return (

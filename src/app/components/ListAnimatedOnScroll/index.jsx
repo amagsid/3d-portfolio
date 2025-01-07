@@ -2,43 +2,43 @@
 import { useState } from 'react';
 import Titles from './titles';
 
-const ListAnimatedOnScroll = ({ globeParentScrollRef, scrollRef }) => {
+const ListAnimatedOnScroll = ({ scrollYProgress }) => {
     const [selectedProject, setSelectedProject] = useState(null);
     const data = [
         {
-            title: 'Ford',
+            title: 'Carhartt',
             description:
                 'Working on the Next-Generation HMI Experience without no driving experience.',
             speed: 0.5,
         },
         {
-            title: 'UFC',
+            title: 'Booking.com',
+            description:
+                'Working on the Next-Generation HMI Experience without no driving experience.',
+            speed: 0.5,
+        },
+        {
+            title: 'BOL',
             description:
                 'Developed the Future of UFC Sports Ecosystem despite not being a sports fan.',
             speed: 0.5,
         },
         {
-            title: 'Lincoln',
+            title: 'SquareSpace',
             description:
                 'Defined the visual concept and design language for the Lincoln Zephyr 2022 but never seen it in real life.',
             speed: 0.67,
         },
         {
-            title: 'Royal Caribbean',
-            description:
-                'I was just one person on a massive team that created an entire Royal Caribbean eco-system.',
-            speed: 0.8,
-        },
-        {
-            title: 'Sleepiq',
+            title: 'N26',
             description:
                 'Designed a 1M+ users product utilizing my best personal experience: sleeping.',
             speed: 0.8,
         },
         {
-            title: 'NFL',
+            title: 'Dyson',
             description:
-                'Explored the Future of Fantasy Football while being in a country where football means a total different sport.',
+                'I was just one person on a massive team that created an entire Royal Caribbean eco-system.',
             speed: 0.8,
         },
     ];
@@ -48,8 +48,7 @@ const ListAnimatedOnScroll = ({ globeParentScrollRef, scrollRef }) => {
             <Titles
                 data={data}
                 setSelectedProject={setSelectedProject}
-                containerRef={globeParentScrollRef}
-                targetRef={scrollRef}
+                scrollYProgress={scrollYProgress}
             />
         </div>
     );

@@ -19,9 +19,16 @@ const CoolTrick = ({ globeParentScrollRef }) => {
         offset: ['start end', 'end start'], // When CoolTrick enters and exits the view
     });
 
-    // useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    //     console.log('Scroll progress:', latest);
-    // });
+    // Scroll progress for the second child
+    const { scrollYProgress: scrollYProgress2 } = useScroll({
+        container: globeParentScrollRef, // Track scroll within parent container
+        target: scrollRef, // Track the scroll progress of the CoolTrick component
+        offset: ['start end', 'end start'],
+    });
+
+    useMotionValueEvent(scrollYProgress2, 'change', (latest) => {
+        console.log('Scroll progressssssssssss:', latest);
+    });
 
     const smoothedScroll = useSpring(scrollYProgress, { damping: 20 });
 
@@ -32,8 +39,9 @@ const CoolTrick = ({ globeParentScrollRef }) => {
         >
             <Globe scrollYProgress={smoothedScroll} />
             <ListAnimatedOnScroll
-                globeParentScrollRef={globeParentScrollRef}
-                scrollRef={scrollRef}
+                scrollYProgress={smoothedScroll}
+                // globeParentScrollRef={globeParentScrollRef}
+                // scrollRef={scrollRef}
             />
         </div>
     );

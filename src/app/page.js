@@ -13,7 +13,11 @@ export default function Home() {
     return (
         <div
             ref={globeParentScrollRef}
-            className='overflow-y-scroll h-screen  snap-mandatory bg-zinc-950  text-white'
+            className='
+            
+            overflow-y-scroll
+            
+            h-screen  snap-mandatory bg-zinc-950  text-white'
         >
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
