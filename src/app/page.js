@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react';
 import Main from './sections/Main';
 import AboutMe from './Sections/AboutMe';
-import CoolTrick from './Sections/CoolTrick';
+import Clients from './Sections/Clients';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
                 <AboutMe />
             </div>
             <div className='snap-center align-center w-screen h-screen '>
-                <CoolTrick globeParentScrollRef={globeParentScrollRef} />
+                <Clients globeParentScrollRef={globeParentScrollRef} />
             </div>
             <div className='snap-center align-center  w-screen h-screen '>
                 4

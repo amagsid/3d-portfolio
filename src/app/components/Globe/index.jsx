@@ -14,7 +14,7 @@ const Globe = ({ scrollYProgress }) => {
     ]);
 
     return (
-        <Canvas>
+        <Canvas style={{ position: 'absolute' }}>
             <ambientLight intensity={0.1} />
             <directionalLight intensity={4} position={[1.8, 0.0, -0.1]} />
 
