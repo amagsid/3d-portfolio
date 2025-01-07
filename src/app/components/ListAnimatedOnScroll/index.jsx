@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Titles from './titles';
+import styles from './style.module.scss';
 
 const ListAnimatedOnScroll = ({ scrollYProgress }) => {
     const [selectedProject, setSelectedProject] = useState(null);

@@ -51,7 +51,7 @@ function Title({ data, setSelectedProject, scrollYProgress }) {
     //     console.log('Scroll progressssss:', latest);
     // });
 
-    const clipProgress = useTransform(scrollYProgress, [0, 0.52], [100, 0]);
+    const clipProgress = useTransform(scrollYProgress, [0.15, 0.51], [100, 0]);
     const clip = useMotionTemplate`inset(0 ${clipProgress}% 0 0)`;
 
     return (
