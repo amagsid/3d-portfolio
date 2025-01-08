@@ -26,9 +26,9 @@ const CoolTrick = ({ globeParentScrollRef }) => {
         offset: ['start end', 'end start'],
     });
 
-    useMotionValueEvent(scrollYProgress2, 'change', (latest) => {
-        console.log('Scroll progressssssssssss:', latest);
-    });
+    // useMotionValueEvent(scrollYProgress2, 'change', (latest) => {
+    //     console.log('Scroll progressssssssssss:', latest);
+    // });
 
     const smoothedScroll = useSpring(scrollYProgress, { damping: 20 });
 

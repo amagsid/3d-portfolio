@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './style.module.scss';
+import Descriptions from '../Descriptions';
 import {
     useScroll,
     motion,
@@ -8,7 +9,7 @@ import {
     useMotionValueEvent,
 } from 'framer-motion';
 
-export default function index({ data, setSelectedProject, scrollYProgress }) {
+export default function index({ data, scrollYProgress }) {
     return (
         <div className={styles.titles}>
             {data.map((project, i) => {
@@ -16,7 +17,6 @@ export default function index({ data, setSelectedProject, scrollYProgress }) {
                     <Title
                         key={i}
                         data={{ ...project, i }}
-                        setSelectedProject={setSelectedProject}
                         scrollYProgress={scrollYProgress}
                     />
                 );
@@ -25,31 +25,15 @@ export default function index({ data, setSelectedProject, scrollYProgress }) {
     );
 }
 
-function Title({ data, setSelectedProject, scrollYProgress }) {
-    const { title, speed, i } = data;
+function Title({
+    data,
+
+    // setSelectedProject,
+    scrollYProgress,
+}) {
+    const [selectedProject, setSelectedProject] = useState(null);
+    const { title, speed, i, description } = data;
     const container = useRef(null);
-
-    // const { scrollYProgress } = useScroll({
-    //     container: globeParentScrollRef, // Track scroll within parent container
-    //     target: container,
-    //     offset: ['start end', `end start`],
-    // });
-
-    // const { scrollYProgress } = useScroll({
-    //     container: globeParentScrollRef,
-    //     target: container, // The element to track
-    //     offset: ['start end', `${25 / speed}vw end`],
-    // });
-
-    // const { scrollYProgress } = useScroll({
-    //     container: globeParentScrollRef, // Track scroll within parent container
-    //     target: scrollRef, // Track the scroll progress of the CoolTrick component
-    //     offset: ['start end', `${25 / speed}vw end`],
-    // });
-
-    // useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    //     console.log('Scroll progressssss:', latest);
-    // });
 
     const clipProgress = useTransform(scrollYProgress, [0.15, 0.51], [100, 0]);
     const clip = useMotionTemplate`inset(0 ${clipProgress}% 0 0)`;
@@ -65,9 +49,23 @@ function Title({ data, setSelectedProject, scrollYProgress }) {
                     setSelectedProject(null);
                 }}
             >
-                <motion.p style={{ clipPath: clip }}>{title}</motion.p>
-                <p>{title}</p>
+                {/* <div className=' pl-10'> */}
+                <motion.p
+                    className='transition-all ease-out delay-550 pl-10'
+                    style={{ clipPath: clip }}
+                >
+                    {title}
+                </motion.p>
+                <p className='pl-10'>{title}</p>
+                <Descriptions
+                    data={data}
+                    selectedProject={selectedProject}
+                    description={description}
+                    title={title}
+                    i={i}
+                />
             </div>
+            {/* </div> */}
         </div>
     );
 }

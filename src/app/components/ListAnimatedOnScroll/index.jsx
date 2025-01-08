@@ -4,7 +4,6 @@ import Titles from './titles';
 import styles from './style.module.scss';
 
 const ListAnimatedOnScroll = ({ scrollYProgress }) => {
-    const [selectedProject, setSelectedProject] = useState(null);
     const data = [
         {
             title: 'Carhartt',
@@ -48,7 +47,7 @@ const ListAnimatedOnScroll = ({ scrollYProgress }) => {
         <div className='absolute w-full'>
             <Titles
                 data={data}
-                setSelectedProject={setSelectedProject}
+                description={data.description}
                 scrollYProgress={scrollYProgress}
             />
         </div>
