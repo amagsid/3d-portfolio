@@ -31,6 +31,7 @@ const CoolTrick = ({ globeParentScrollRef }) => {
     // });
 
     const smoothedScroll = useSpring(scrollYProgress, { damping: 20 });
+    // const smoothedOutScroll = useMotionValue(scrollYpropgredd, { damping: 30 });
 
     return (
         <div
@@ -41,7 +42,6 @@ const CoolTrick = ({ globeParentScrollRef }) => {
             <ListAnimatedOnScroll
                 scrollYProgress={smoothedScroll}
                 // globeParentScrollRef={globeParentScrollRef}
-                // scrollRef={scrollRef}
             />
         </div>
     );

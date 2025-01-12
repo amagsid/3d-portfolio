@@ -22,7 +22,12 @@ const Main = () => {
                     r'
                     >
                         {' '}
-                        MAKING <br /> GOOD <br /> SHIT <br /> SINCE <br /> 2009
+                        MAKING <br />{' '}
+                        <span style={{ color: '#ec4e39' }}>
+                            {' '}
+                            GOOD <br /> SHIT <br />{' '}
+                        </span>{' '}
+                        SINCE <br /> 2009
                     </h1>
                 </div>
 

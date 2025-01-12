@@ -27,7 +27,6 @@ export default function index({ data, scrollYProgress }) {
 
 function Title({
     data,
-
     // setSelectedProject,
     scrollYProgress,
 }) {

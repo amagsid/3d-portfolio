@@ -22,7 +22,7 @@ export default function Home() {
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
             </div>
-            <div className='snap-center align-center  w-screen h-screen '>
+            <div className='snap-center align-center flex  w-screen h-screen '>
                 <AboutMe />
             </div>
             <div className='snap-center align-center w-screen h-screen '>

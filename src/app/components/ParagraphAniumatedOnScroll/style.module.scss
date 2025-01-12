@@ -1,0 +1,29 @@
+.wrapper {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    display: flex;
+
+    p {
+        // display: inline-block;
+        color: #b7ab98;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 4vw;
+        line-height: 3.7vw;
+        // margin: 0px;
+        z-index: 2;
+
+        span {
+            display: inline-block;
+        }
+
+        &:nth-of-type(2) {
+            // display: block;
+            position: absolute;
+            color: #1c1c1c;
+
+            z-index: 1;
+        }
+    }
+}

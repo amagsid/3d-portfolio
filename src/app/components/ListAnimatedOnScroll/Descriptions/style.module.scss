@@ -8,7 +8,7 @@
     .description {
         background-color: #ec4e39;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
         // padding-left: 10%;
         padding-right: 10%;
@@ -29,6 +29,7 @@
                 width: 40%;
                 font-size: 1vw;
                 font-weight: 700;
+                right: 0;
             }
         }
     }
