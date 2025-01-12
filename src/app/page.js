@@ -23,7 +23,7 @@ export default function Home() {
                 <Main />
             </div>
             <div className='snap-center align-center flex  w-screen h-screen '>
-                <AboutMe />
+                <AboutMe globeParentScrollRef={globeParentScrollRef} />
             </div>
             <div className='snap-center align-center w-screen h-screen '>
                 <Clients globeParentScrollRef={globeParentScrollRef} />

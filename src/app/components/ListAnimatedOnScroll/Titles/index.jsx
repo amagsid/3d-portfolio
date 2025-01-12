@@ -38,7 +38,7 @@ function Title({
     const clip = useMotionTemplate`inset(0 ${clipProgress}% 0 0)`;
 
     return (
-        <div ref={container} className={styles.title}>
+        <div className={styles.title}>
             <div
                 className={styles.wrapper}
                 onMouseOver={() => {
@@ -48,14 +48,13 @@ function Title({
                     setSelectedProject(null);
                 }}
             >
-                {/* <div className=' pl-10'> */}
                 <motion.p
-                    className='transition-all ease-out delay-550 pl-10'
+                    className='transition-all ease-out delay-550 pl-24'
                     style={{ clipPath: clip }}
                 >
                     {title}
                 </motion.p>
-                <p className='pl-10'>{title}</p>
+                <p className='pl-24'>{title}</p>
                 <Descriptions
                     data={data}
                     selectedProject={selectedProject}
@@ -64,7 +63,6 @@ function Title({
                     i={i}
                 />
             </div>
-            {/* </div> */}
         </div>
     );
 }

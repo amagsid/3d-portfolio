@@ -10,7 +10,7 @@ const Main = () => {
             <FloatingShape />
             <div className='  absolute w-screen flex flex-col justify-center items-center h-screen'>
                 <div
-                    className=' text-slate-500 font-bold text-8xl text-center leading-[80%]
+                    className=' text-[#b7ab98] font-bold text-8xl text-center leading-[80%]
             
                 '
                 >

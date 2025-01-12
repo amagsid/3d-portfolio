@@ -7,6 +7,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                play: ['Quicksand', 'sans-serif'],
+            },
             colors: {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',

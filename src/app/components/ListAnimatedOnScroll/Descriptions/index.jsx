@@ -17,7 +17,7 @@ const Descriptions = ({ data, selectedProject, title, description, i }) => {
                             : 'inset(50% 0 50%',
                 }}
             >
-                <p className='pl-10'>{title}</p>
+                <p className='pl-24'>{title}</p>
                 <p>{description}</p>
             </div>
         </div>

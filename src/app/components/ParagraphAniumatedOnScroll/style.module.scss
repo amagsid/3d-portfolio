@@ -7,7 +7,7 @@
     p {
         // display: inline-block;
         color: #b7ab98;
-        text-transform: uppercase;
+
         font-weight: 700;
         font-size: 4vw;
         line-height: 3.7vw;
@@ -24,6 +24,18 @@
             color: #1c1c1c;
 
             z-index: 1;
+        }
+    }
+
+    // Add media query for mobile view
+    @media (max-width: 768px) {
+        p {
+            font-size: 10vw; // Adjust font size for mobile
+            line-height: 100%;
+            text-align: center;
+
+            &:nth-of-type(2) {
+            }
         }
     }
 }
