@@ -1,0 +1,49 @@
+.maskedWrapper {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    display: flex;
+
+    // p {
+    //     // display: inline-block;
+    //     font-family: 'Roboto', serif;
+    //     color: #b7ab98;
+    //     font-weight: 700;
+    //     font-size: 4vw;
+    //     line-height: 3.7vw;
+    //     // margin: 0px;
+    //     z-index: 2;
+
+    //     span {
+    //         display: inline-block;
+
+    //         .highlight {
+    //             color: #ec4e39;
+    //         }
+    //     }
+
+    //     &:nth-of-type(2) {
+    //         .highlight {
+    //             color: #351c18;
+    //         }
+    //         // display: block;
+    //         position: absolute;
+    //         color: #1c1c1c;
+    //         font-weight: 600;
+
+    //         z-index: 1;
+    //     }
+    // }
+
+    // Add media query for mobile view
+    @media (max-width: 768px) {
+        p {
+            font-size: 10vw; // Adjust font size for mobile
+            line-height: 100%;
+            text-align: center;
+
+            &:nth-of-type(2) {
+            }
+        }
+    }
+}

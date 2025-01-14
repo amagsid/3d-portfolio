@@ -1,4 +1,6 @@
 import styles from './style.module.scss';
+import MaskedText from '../MaskedText';
+
 import { useRef } from 'react';
 import {
     motion,
@@ -7,6 +9,9 @@ import {
     useMotionTemplate,
     useSpring,
 } from 'framer-motion';
+
+const maskedText =
+    'A frent-end developer always running to have all the relevant possible skills to delay replacement by AI';
 
 const ParagraphAniumatedOnScroll = ({
     children,
@@ -78,6 +83,7 @@ const ParagraphAniumatedOnScroll = ({
                     </span>
                 ))}
             </p>
+            {/* <MaskedText>{maskedText}</MaskedText> */}
         </div>
     );
 };
