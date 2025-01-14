@@ -8,7 +8,25 @@ import {
     useSpring,
 } from 'framer-motion';
 
-const ParagraphAniumatedOnScroll = ({ children, globeParentScrollRef }) => {
+const ParagraphAniumatedOnScroll = ({
+    children,
+    globeParentScrollRef,
+    highlightWords,
+}) => {
+    const highlightText = (text, words) => {
+        const regex = new RegExp(`(${words.join('|')})`, 'gi'); // Create a regex to match the words
+        return text.split(regex).map((part, index) => {
+            if (words.includes(part.toLowerCase())) {
+                return (
+                    <span key={index} className={styles.highlight}>
+                        {part}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
+
     const lines = children.split('\n');
     const scrollRef = useRef(null); // Ref for CoolTrick component itself
 
@@ -44,14 +62,20 @@ const ParagraphAniumatedOnScroll = ({ children, globeParentScrollRef }) => {
                             key={index}
                             // className=' transition-all ease-in-out'
                         >
-                            {line}
+                            {highlightWords
+                                ? highlightText(line, highlightWords)
+                                : line}
                         </motion.span>
                     );
                 })}
             </p>
             <p>
                 {lines.map((line, index) => (
-                    <span key={index}>{line}</span>
+                    <span key={index}>
+                        {highlightWords
+                            ? highlightText(line, highlightWords)
+                            : line}
+                    </span>
                 ))}
             </p>
         </div>

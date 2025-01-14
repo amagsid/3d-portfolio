@@ -2,7 +2,7 @@ import React from 'react';
 import ParagraphAnimatedOnscroll from '../components/ParagraphAniumatedOnScroll';
 
 const AboutMe = ({ globeParentScrollRef }) => {
-    const text = `I'm a purposefully skilled front-end
+    const text = `I'm a purposefully-skilled frontend
     developer with a strong focus on
     crafting seamless digital
     experiences and user engagement`;
@@ -11,10 +11,15 @@ const AboutMe = ({ globeParentScrollRef }) => {
             {' '}
             <ParagraphAnimatedOnscroll
                 globeParentScrollRef={globeParentScrollRef}
+                highlightWords={[
+                    'purposefully-skilled',
+                    'seamless',
+                    'user engagement',
+                ]}
             >
                 {text}
             </ParagraphAnimatedOnscroll>
-            <h1> this is what I do</h1>
+            <h1> Skills and technologies</h1>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react';
 import Main from './sections/Main';
 import AboutMe from './Sections/AboutMe';
 import Clients from './Sections/Clients';
+import NavigationUI from './Sections/NavigationUI';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
             
             h-screen  snap-mandatory bg-zinc-950  text-white'
         >
+            <NavigationUI />
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
             </div>
