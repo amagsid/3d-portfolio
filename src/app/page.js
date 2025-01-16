@@ -4,12 +4,16 @@ import Main from './sections/Main';
 import AboutMe from './Sections/AboutMe';
 import Clients from './Sections/Clients';
 import NavigationUI from './Sections/NavigationUI';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { useScroll, useMotionValueEvent, motion } from 'framer-motion';
+import useMousePosition from './hooks/useMousePosition';
 
 export default function Home() {
     //scroll progress to track scroll to rotate earth shape
     //work on tracking the parent div of the cabvas instead of the most outer div
     const globeParentScrollRef = useRef(); // Ref for the scrollable div
+    const { x, y } = useMousePosition();
+
+    const cursorSize = 50; // Adjust this if your cursor size changes
 
     return (
         <div
@@ -20,12 +24,20 @@ export default function Home() {
             
             h-screen  snap-mandatory bg-zinc-950  text-white'
         >
+            <motion.div
+                animate={{ x: x - cursorSize / 2, y: y - cursorSize / 2 }}
+                className='cursor'
+            ></motion.div>
             <NavigationUI />
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
             </div>
             <div className='snap-center align-center flex  w-screen h-screen '>
-                <AboutMe globeParentScrollRef={globeParentScrollRef} />
+                <AboutMe
+                    globeParentScrollRef={globeParentScrollRef}
+                    x={x}
+                    y={y}
+                />
             </div>
             <div className='snap-center align-center w-screen h-screen '>
                 <Clients globeParentScrollRef={globeParentScrollRef} />

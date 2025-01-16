@@ -10,13 +10,14 @@ import {
     useSpring,
 } from 'framer-motion';
 
-const maskedText =
-    'A frent-end developer always running to have all the relevant possible skills to delay replacement by AI';
+const maskedText = `and I learned these frent-end end tricks to extend the time in which AI is going to take on my job.`;
 
 const ParagraphAniumatedOnScroll = ({
     children,
     globeParentScrollRef,
     highlightWords,
+    x,
+    y,
 }) => {
     const highlightText = (text, words) => {
         const regex = new RegExp(`(${words.join('|')})`, 'gi'); // Create a regex to match the words
@@ -83,7 +84,9 @@ const ParagraphAniumatedOnScroll = ({
                     </span>
                 ))}
             </p>
-            {/* <MaskedText>{maskedText}</MaskedText> */}
+            {/* <MaskedText x={x} y={y}>
+                {maskedText}
+            </MaskedText> */}
         </div>
     );
 };
