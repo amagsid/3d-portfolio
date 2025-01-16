@@ -25,8 +25,15 @@ export default function Home() {
             h-screen  snap-mandatory bg-zinc-950  text-white'
         >
             <motion.div
-                animate={{ x: x - cursorSize / 2, y: y - cursorSize / 2 }}
+                animate={{ x: x - 12.5, y: y - 12.5 }}
                 className='cursor'
+                transition={
+                    {
+                        // type: 'spring',
+                        // stiffness: 450,
+                        // damping: 30,
+                    }
+                }
             ></motion.div>
             <NavigationUI />
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>

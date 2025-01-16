@@ -84,9 +84,9 @@ const ParagraphAniumatedOnScroll = ({
                     </span>
                 ))}
             </p>
-            {/* <MaskedText x={x} y={y}>
+            <MaskedText x={x} y={y}>
                 {maskedText}
-            </MaskedText> */}
+            </MaskedText>
         </div>
     );
 };
