@@ -13,7 +13,7 @@ export default function Home() {
     const globeParentScrollRef = useRef(); // Ref for the scrollable div
     const { x, y } = useMousePosition();
 
-    const cursorSize = 50; // Adjust this if your cursor size changes
+    const cursorSize = 25; // Adjust this if your cursor size changes
 
     return (
         <div
