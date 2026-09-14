@@ -1,0 +1,77 @@
+.nav {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    pointer-events: auto;
+    transform: translateX(-100%);
+}
+
+.item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 5.75rem;
+    height: var(--mesh-spacing, 26px);
+    border: 0;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: #6b6258;
+}
+
+.item:hover .label,
+.item:focus-visible .label {
+    color: #ec4e39;
+}
+
+.item:focus-visible {
+    outline: none;
+}
+
+.label {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    color: #b7ab98;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.active .label {
+    color: #ec4e39;
+}
+
+.invert .label,
+.invert:hover .label,
+.invert:focus-visible .label,
+.invert.active .label {
+    color: #010101;
+}
+
+.dotWrap {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(183, 171, 152, 0.2);
+    box-shadow: 0 0 0 0 rgba(236, 78, 57, 0);
+}

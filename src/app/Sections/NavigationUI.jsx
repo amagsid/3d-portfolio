@@ -1,12 +1,10 @@
-import React from 'react';
+'use client';
+import CornerNav from '../components/CornerNav';
 
-const NavigationUI = () => {
+const NavigationUI = ({ scrollRef, invert = false }) => {
     return (
-        <div className='navo grid grid-rows-2 grid-cols-2  h-screen absolute pointer-events-none w-full z-20 px-4 py-4'>
-            <div className='self-start justify-self-start'>logo</div>
-            <div className='self-start justify-self-end'>nav</div>
-            <div className='self-end justify-self-start'>social</div>
-            <div className='self-end justify-self-end'>audio</div>
+        <div className='navo h-screen fixed pointer-events-none w-full z-[1000]'>
+            <CornerNav scrollRef={scrollRef} invert={invert} />
         </div>
     );
 };

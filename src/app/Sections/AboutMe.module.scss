@@ -13,6 +13,61 @@
     padding: 4vh 7vw 12vh;
 }
 
+.sticky > :not(.portraitWrap) {
+    position: relative;
+    z-index: 1;
+}
+
+.portraitWrap {
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    right: 4.5vw;
+    width: min(28vw, 42vh);
+    height: min(36vw, 54vh);
+    transform: translateY(-46%);
+    pointer-events: none;
+}
+
+.portrait {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+        linear-gradient(90deg, #09090b 0%, rgba(9, 9, 11, 0.55) 18%, transparent 38%),
+        linear-gradient(180deg, transparent 68%, rgba(9, 9, 11, 0.72) 88%, #09090b 100%);
+    pointer-events: none;
+}
+
+.portraitImage {
+    object-fit: cover;
+    object-position: 58% 10%;
+    filter: grayscale(1) contrast(1.18) brightness(0.76);
+}
+
+.portraitTone {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(165deg, #e4d6c5 0%, #ec4e39 58%, #3a1814 100%);
+    mix-blend-mode: color;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.kickerPortrait {
+    display: none;
+}
+
 .kicker {
     display: flex;
     align-items: center;
@@ -70,7 +125,42 @@
         display: none;
     }
 
+    .portraitWrap {
+        display: none;
+    }
+
     .kicker {
         margin-bottom: 1.75rem;
+    }
+
+    .kickerPortrait {
+        display: block;
+        position: relative;
+        width: 68px;
+        height: 68px;
+        margin-left: 0.15rem;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        isolation: isolate;
+    }
+
+    .kickerPortrait::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        box-shadow: inset 0 0 0 1px rgba(236, 78, 57, 0.22);
+        background: radial-gradient(
+            circle at 50% 38%,
+            transparent 46%,
+            rgba(9, 9, 11, 0.55) 72%,
+            #09090b 100%
+        );
+        pointer-events: none;
+    }
+
+    .kickerPortrait .portraitImage {
+        object-position: 52% 8%;
     }
 }

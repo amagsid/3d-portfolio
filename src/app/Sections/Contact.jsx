@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import MagneticTitle from '../components/ListAnimatedOnScroll/MagneticTitle';
+import HeroDotMesh from '../components/HeroDotMesh';
 import styles from './Contact.module.scss';
 
 const FloatingShape = dynamic(() => import('../components/FloatingShape'), {
@@ -10,17 +11,15 @@ const FloatingShape = dynamic(() => import('../components/FloatingShape'), {
 
 const EMAIL = 'hello@ahmadsaeed.com';
 
-const pullFromStage = (emailEl, stageEl) => {
+const pullFromStage = (emailEl, stageEl, pointer) => {
     if (!emailEl || !stageEl) return null;
     const email = emailEl.getBoundingClientRect();
     const stage = stageEl.getBoundingClientRect();
+    const px = pointer?.clientX ?? email.left + email.width / 2;
+    const py = pointer?.clientY ?? email.top + email.height / 2;
     return {
-        x:
-            (email.left + email.width / 2 - (stage.left + stage.width / 2)) /
-            Math.max(stage.width, 1),
-        y:
-            (email.top + email.height / 2 - (stage.top + stage.height / 2)) /
-            Math.max(stage.height, 1),
+        x: (px - (stage.left + stage.width / 2)) / Math.max(stage.width, 1),
+        y: (py - (stage.top + stage.height / 2)) / Math.max(stage.height, 1),
     };
 };
 
@@ -29,19 +28,20 @@ const Contact = ({ globeParentScrollRef }) => {
     const emailRef = useRef(null);
     const stageRef = useRef(null);
     const [inView, setInView] = useState(false);
-    const [excited, setExcited] = useState(false);
-    const [attract, setAttract] = useState(null);
+    const attractRef = useRef(null);
     const [copied, setCopied] = useState(false);
     const copiedTimer = useRef(null);
 
-    const aimAtEmail = () => {
-        setAttract(pullFromStage(emailRef.current, stageRef.current));
-        setExcited(true);
+    const aimAtEmail = (event) => {
+        attractRef.current = pullFromStage(
+            emailRef.current,
+            stageRef.current,
+            event
+        );
     };
 
     const releaseAim = () => {
-        setAttract(null);
-        setExcited(false);
+        attractRef.current = null;
     };
 
     useEffect(() => () => clearTimeout(copiedTimer.current), []);
@@ -87,6 +87,7 @@ const Contact = ({ globeParentScrollRef }) => {
 
     return (
         <section ref={sectionRef} className={styles.section}>
+            <HeroDotMesh variant='contact' active={inView} />
             <div className={styles.copy}>
                 <p className={styles.kicker}>
                     <span className={styles.kickerLine} />
@@ -99,6 +100,7 @@ const Contact = ({ globeParentScrollRef }) => {
                     href={`mailto:${EMAIL}`}
                     onClick={copyEmail}
                     onMouseEnter={aimAtEmail}
+                    onMouseMove={aimAtEmail}
                     onMouseLeave={releaseAim}
                     onFocus={aimAtEmail}
                     onBlur={releaseAim}
@@ -130,15 +132,14 @@ const Contact = ({ globeParentScrollRef }) => {
             <div ref={stageRef} className={styles.stage} aria-hidden>
                 <FloatingShape
                     variant='contact'
-                    excited={excited}
                     inView={inView}
-                    attract={attract}
+                    attractRef={attractRef}
                 />
             </div>
             <footer className={styles.footer}>
                 <span>Ahmad Saeed</span>
                 <span>© 2026</span>
-                <span>Worldwide</span>
+                <span>Amsterdam</span>
             </footer>
         </section>
     );

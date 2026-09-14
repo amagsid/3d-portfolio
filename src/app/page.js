@@ -22,23 +22,29 @@ export default function Home() {
             h-screen  snap-mandatory bg-zinc-950  text-white'
         >
             <Cursor flashlight={flashlight} invert={invert} />
-            <NavigationUI />
-            <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
+            <NavigationUI scrollRef={globeParentScrollRef} invert={invert} />
+            <div
+                id='home'
+                className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'
+            >
                 <Main />
             </div>
-            <div className='snap-start w-screen'>
+            <div id='about' className='snap-start w-screen'>
                 <AboutMe
                     globeParentScrollRef={globeParentScrollRef}
                     onFlashlight={setFlashlight}
                 />
             </div>
-            <div className='snap-start w-screen'>
+            <div id='work' className='snap-start w-screen'>
                 <Clients
                     globeParentScrollRef={globeParentScrollRef}
                     onInvertCursor={setInvert}
                 />
             </div>
-            <div className='snap-center align-center w-screen h-screen'>
+            <div
+                id='contact'
+                className='snap-center align-center w-screen h-screen'
+            >
                 <Contact globeParentScrollRef={globeParentScrollRef} />
             </div>
         </div>

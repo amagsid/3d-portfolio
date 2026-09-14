@@ -95,9 +95,8 @@ function StudioLights() {
 
 const FloatingShape = ({
     variant = 'hero',
-    excited = false,
     inView = false,
-    attract = null,
+    attractRef,
 }) => {
     const isMobile = useIsMobile();
     const isContact = variant === 'contact';
@@ -113,34 +112,24 @@ const FloatingShape = ({
         damping: 18,
         mass: 0.6,
     });
-    const lean = useSpring(0, { stiffness: 64, damping: 16, mass: 0.7 });
 
     useEffect(() => {
         if (isContact) {
-            intensity.set(inView ? (excited ? 0.14 : 0.48) : 0);
-            lean.set(inView && excited ? 1 : 0);
+            intensity.set(inView ? 0.48 : 0);
             return;
         }
         intensity.set(1);
-        lean.set(0);
-    }, [excited, intensity, isContact, inView, lean]);
+    }, [intensity, isContact, inView]);
 
     useEffect(() => {
         const manageMouseMove = (e) => {
-            if (attract) return;
             mouseX.set(e.clientX / window.innerWidth);
             mouseY.set(e.clientY / window.innerHeight);
         };
 
         window.addEventListener('mousemove', manageMouseMove);
         return () => window.removeEventListener('mousemove', manageMouseMove);
-    }, [attract, mouseX, mouseY]);
-
-    useEffect(() => {
-        if (!attract) return;
-        mouseX.set(Math.min(1, Math.max(0, 0.5 + attract.x * 0.5)));
-        mouseY.set(Math.min(1, Math.max(0, 0.5 + attract.y * 0.5)));
-    }, [attract, mouseX, mouseY]);
+    }, [mouseX, mouseY]);
 
     return (
         <Canvas
@@ -152,20 +141,20 @@ const FloatingShape = ({
                 toneMapping: THREE.ACESFilmicToneMapping,
                 toneMappingExposure: 1.12,
             }}
-            className='absolute inset-0 h-full w-full'
+            className='absolute inset-0 z-[1] h-full w-full'
             style={{ pointerEvents: 'none' }}
+            onCreated={({ gl }) => {
+                gl.setClearColor(0x000000, 0);
+            }}
         >
-            <color attach='background' args={['#09090b']} />
             <CameraController isMobile={isMobile} variant={variant} />
             <Suspense fallback={null}>
                 <Model
                     mouse={smoothMouse}
                     variant={variant}
                     intensity={intensity}
-                    excited={excited}
                     inView={inView}
-                    lean={lean}
-                    attract={attract}
+                    attractRef={attractRef}
                 />
                 <StudioLights />
             </Suspense>

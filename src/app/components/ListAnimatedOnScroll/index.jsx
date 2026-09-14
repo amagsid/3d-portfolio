@@ -7,7 +7,7 @@ const ListAnimatedOnScroll = ({ scrollYProgress, onInvertCursor }) => {
             title: 'Carhartt',
             tag: 'Now',
             description:
-                'Built global web interfaces for the hardworking people Carhartt exists to serve and protect.',
+                "Maintaining Carhartt's global digital interfaces across the U.S and EMEA so that hard working people can have a seamless UX",
             href: 'https://www.carhartt.com',
         },
         {

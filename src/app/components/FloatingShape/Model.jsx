@@ -260,12 +260,13 @@ const contactGlyphs = [
     },
 ];
 
-function Glyph({ glyph, mouse, intensity, independentFloat = false }) {
+function Glyph({ glyph, mouse, intensity, magnetRef, independentFloat = false }) {
     const mesh = (
         <Mesh
             mouse={mouse}
             multiplier={glyph.multiplier}
             intensity={intensity}
+            magnetRef={magnetRef}
             position={glyph.position}
             rotation={glyph.rotation}
             invertX={glyph.invertX ?? 1}
@@ -300,39 +301,18 @@ function Glyph({ glyph, mouse, intensity, independentFloat = false }) {
     );
 }
 
-function ClusterDrift({ lean, attract, children }) {
+function ClusterDrift({ children }) {
     const groupRef = useRef(null);
-    const attractRef = useRef(attract);
-    attractRef.current = attract;
 
     useFrame(({ clock }) => {
         const group = groupRef.current;
         if (!group) return;
         const t = clock.elapsedTime;
-        const amount = lean ? lean.get() : 0;
-        const pull = attractRef.current;
-        const ax = (pull?.x ?? -0.9) * amount;
-        const ay = (pull?.y ?? 0) * amount;
-        const idle = 1 - amount;
-        group.rotation.y =
-            t * 0.18 * idle + Math.sin(t * 0.35) * 0.16 * idle + ax * 0.28;
-        group.rotation.x = Math.sin(t * 0.28) * 0.14 * idle - ay * 0.22;
-        group.rotation.z = Math.cos(t * 0.21) * 0.07 * idle;
-        group.position.y = Math.sin(t * 0.55) * 2.2 * idle - ay * 34;
-        group.position.x = Math.cos(t * 0.32) * 1.4 * idle + ax * 52;
-    });
-
-    return <group ref={groupRef}>{children}</group>;
-}
-
-function Gather({ lean, children }) {
-    const groupRef = useRef(null);
-
-    useFrame(() => {
-        const group = groupRef.current;
-        if (!group) return;
-        const t = lean ? lean.get() : 0;
-        group.scale.setScalar(1 - t * 0.48);
+        group.rotation.y = t * 0.18 + Math.sin(t * 0.35) * 0.16;
+        group.rotation.x = Math.sin(t * 0.28) * 0.14;
+        group.rotation.z = Math.cos(t * 0.21) * 0.07;
+        group.position.y = Math.sin(t * 0.55) * 2.2;
+        group.position.x = Math.cos(t * 0.32) * 1.4;
     });
 
     return <group ref={groupRef}>{children}</group>;
@@ -386,39 +366,32 @@ const Model = ({
     mouse,
     variant = 'hero',
     intensity,
-    excited = false,
     inView = false,
-    lean,
-    attract,
+    attractRef,
 }) => {
     const isContact = variant === 'contact';
 
     if (isContact) {
         return (
-            <Float
-                speed={excited ? 0.55 : 1.05}
-                rotationIntensity={excited ? 0.2 : 0.48}
-                floatIntensity={excited ? 0.28 : 0.72}
-            >
-                <ClusterDrift lean={lean} attract={attract}>
-                    <Gather lean={lean}>
-                        <group scale={0.84}>
-                            {contactGlyphs.map((glyph, index) => (
-                                <StaggerAppear
-                                    key={glyph.text}
-                                    active={inView}
-                                    index={index}
-                                    count={contactGlyphs.length}
-                                >
-                                    <Glyph
-                                        glyph={glyph}
-                                        mouse={mouse}
-                                        intensity={intensity}
-                                    />
-                                </StaggerAppear>
-                            ))}
-                        </group>
-                    </Gather>
+            <Float speed={1.05} rotationIntensity={0.48} floatIntensity={0.72}>
+                <ClusterDrift>
+                    <group scale={0.84}>
+                        {contactGlyphs.map((glyph, index) => (
+                            <StaggerAppear
+                                key={glyph.text}
+                                active={inView}
+                                index={index}
+                                count={contactGlyphs.length}
+                            >
+                                <Glyph
+                                    glyph={glyph}
+                                    mouse={mouse}
+                                    intensity={intensity}
+                                    magnetRef={attractRef}
+                                />
+                            </StaggerAppear>
+                        ))}
+                    </group>
                 </ClusterDrift>
             </Float>
         );

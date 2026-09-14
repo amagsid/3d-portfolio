@@ -1,5 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
+import HeroDotMesh from '../components/HeroDotMesh';
 
 const FloatingShape = dynamic(() => import('../components/FloatingShape'), {
     ssr: false,
@@ -8,8 +9,9 @@ const FloatingShape = dynamic(() => import('../components/FloatingShape'), {
 const Main = () => {
     return (
         <main className='flex gap-8 row-start-2 items-center sm:items-start relative sm:h-[120vh] h-screen w-screen '>
+            <HeroDotMesh />
             <FloatingShape />
-            <div className='  absolute w-screen flex flex-col justify-center items-center h-screen'>
+            <div className='absolute z-[2] w-screen flex flex-col justify-center items-center h-screen'>
                 <div
                     className=' text-[#b7ab98] font-bold text-8xl text-center leading-[80%]
             
