@@ -1,69 +1,82 @@
+import { useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 import { useTransform } from 'framer-motion';
-import { motion } from 'framer-motion-3d';
 
-function Mesh({ node, mouse, multiplier }) {
-    const {
-        castShadow,
-        receiveShadow,
-        geometry,
-        material,
-        position,
-        rotation,
-        scale,
-    } = node;
+function Mesh({
+    mouse,
+    multiplier,
+    intensity,
+    position = [0, 0, 0],
+    rotation = [0, 0, 0],
+    invertX = 1,
+    invertY = 1,
+    drift = 1,
+    children,
+}) {
+    const groupRef = useRef(null);
+    const rest = useMemo(
+        () => ({
+            position: [...position],
+            rotation: [...rotation],
+        }),
+        [position, rotation]
+    );
+
+    const travel = multiplier * 5 * drift;
+    const tilt = multiplier / 3;
 
     const rotationX = useTransform(
         mouse.x,
         [0, 1],
-        [rotation.x - multiplier / 3, rotation.x + multiplier / 3]
+        [
+            rest.rotation[0] - invertX * tilt,
+            rest.rotation[0] + invertX * tilt,
+        ]
     );
     const rotationY = useTransform(
         mouse.y,
         [0, 1],
-        [rotation.y - multiplier / 3, rotation.y + multiplier / 3]
+        [
+            rest.rotation[1] - invertY * tilt,
+            rest.rotation[1] + invertY * tilt,
+        ]
     );
     const positionX = useTransform(
         mouse.x,
         [0, 1],
-        [position.x - multiplier * 5, position.x + multiplier * 5]
+        [rest.position[0] - invertX * travel, rest.position[0] + invertX * travel]
     );
     const positionY = useTransform(
         mouse.y,
         [0, 1],
-        [position.y + multiplier * 5, position.y - multiplier * 5]
+        [rest.position[1] + invertY * travel, rest.position[1] - invertY * travel]
     );
 
-    const materialVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.5 } },
-    };
+    useFrame(() => {
+        const group = groupRef.current;
+        if (!group) return;
+
+        const boost = intensity ? intensity.get() : 1;
+        group.position.set(
+            rest.position[0] + (positionX.get() - rest.position[0]) * boost,
+            rest.position[1] + (positionY.get() - rest.position[1]) * boost,
+            rest.position[2]
+        );
+        group.rotation.set(
+            rest.rotation[1] + (rotationY.get() - rest.rotation[1]) * boost,
+            rest.rotation[0] + (rotationX.get() - rest.rotation[0]) * boost,
+            rest.rotation[2]
+        );
+    });
 
     return (
-        <motion.mesh
-            castShadow={castShadow}
-            receiveShadow={receiveShadow}
-            geometry={geometry}
-            material={material}
-            position={position}
-            rotation={rotation}
-            rotation-x={rotationY}
-            rotation-y={rotationX}
-            position-x={positionX}
-            position-y={positionY}
-            scale={scale}
+        <group
+            ref={groupRef}
+            position={rest.position}
+            rotation={rest.rotation}
         >
-            <motion.meshStandardMaterial
-                // color='#791740'
-                color='blue'
-                // color='#672e3e'
-                // color='#714171'
-                // color='red'
-                transparent
-                variants={materialVariants} // Opacity animation on material
-                initial='hidden'
-                animate='visible'
-            />
-        </motion.mesh>
+            {children}
+        </group>
     );
 }
 

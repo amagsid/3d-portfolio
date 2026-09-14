@@ -1,10 +1,11 @@
 'use client';
-import FloatingShape from '../components/FloatingShape';
-import Button from '../components/Button';
-import { useIsMobile } from '../hooks/useIsMobile'; // Adjust the path as needed
+import dynamic from 'next/dynamic';
+
+const FloatingShape = dynamic(() => import('../components/FloatingShape'), {
+    ssr: false,
+});
 
 const Main = () => {
-    const isMobile = useIsMobile();
     return (
         <main className='flex gap-8 row-start-2 items-center sm:items-start relative sm:h-[120vh] h-screen w-screen '>
             <FloatingShape />
@@ -21,13 +22,11 @@ const Main = () => {
                         className='         mix-blend-plus-lighter
                     r'
                     >
-                        {' '}
-                        MAKING <br />{' '}
-                        <span style={{ color: '#ec4e39' }}>
-                            {' '}
-                            GOOD <br /> SHIT <br />{' '}
-                        </span>{' '}
-                        SINCE <br /> 2009
+                        FRONTEND <br />
+                        <span style={{ color: '#ec4e39' }}>INTERFACES</span>,
+                        <br />
+                        CRAFTED WITH <br />
+                        <span style={{ color: '#ec4e39' }}>PURPOSE</span>
                     </h1>
                 </div>
 

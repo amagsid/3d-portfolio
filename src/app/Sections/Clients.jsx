@@ -1,49 +1,72 @@
 'use client';
-// import Globe from '../components/Globe';
-import { useRef, useEffect } from 'react';
-import { useScroll, useMotionValueEvent, useSpring } from 'framer-motion';
+import { useLayoutEffect, useRef } from 'react';
+import { useMotionValue, useSpring } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import ListAnimatedOnScroll from '../components/ListAnimatedOnScroll';
 
 const Globe = dynamic(() => import('../components/Globe'), {
     ssr: false,
-    loading: () => <img src='/assets/placeholder.png'></img>,
+    loading: () => null,
 });
 
-const CoolTrick = ({ globeParentScrollRef }) => {
-    const scrollRef = useRef(null); // Ref for CoolTrick component itself
+const CoolTrick = ({ globeParentScrollRef, onInvertCursor }) => {
+    const sectionRef = useRef(null);
+    const containerRef = useRef(globeParentScrollRef);
+    containerRef.current = globeParentScrollRef;
+    const rawProgress = useMotionValue(0);
+    const smoothedScroll = useSpring(rawProgress, { damping: 20, stiffness: 80 });
 
-    const { scrollYProgress } = useScroll({
-        container: globeParentScrollRef, // Track scroll within parent container
-        target: scrollRef, // Track the scroll progress of the CoolTrick component
-        offset: ['start end', 'end start'], // When CoolTrick enters and exits the view
-    });
+    useLayoutEffect(() => {
+        let frame;
+        let container;
 
-    // Scroll progress for the second child
-    const { scrollYProgress: scrollYProgress2 } = useScroll({
-        container: globeParentScrollRef, // Track scroll within parent container
-        target: scrollRef, // Track the scroll progress of the CoolTrick component
-        offset: ['start end', 'end start'],
-    });
+        const update = () => {
+            const target = sectionRef.current;
+            if (!container || !target) return;
 
-    // useMotionValueEvent(scrollYProgress2, 'change', (latest) => {
-    //     console.log('Scroll progressssssssssss:', latest);
-    // });
+            const start = target.offsetTop - container.clientHeight * 0.15;
+            const end =
+                target.offsetTop +
+                target.offsetHeight -
+                container.clientHeight * 0.2;
+            const progress = (container.scrollTop - start) / (end - start);
+            rawProgress.set(Math.min(1, Math.max(0, progress)));
+        };
 
-    const smoothedScroll = useSpring(scrollYProgress, { damping: 20 });
-    // const smoothedOutScroll = useMotionValue(scrollYpropgredd, { damping: 30 });
+        const bind = () => {
+            container = containerRef.current?.current;
+            if (!container || !sectionRef.current) {
+                frame = requestAnimationFrame(bind);
+                return;
+            }
+
+            update();
+            container.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+        };
+
+        bind();
+
+        return () => {
+            cancelAnimationFrame(frame);
+            container?.removeEventListener('scroll', update);
+            window.removeEventListener('resize', update);
+        };
+    }, [rawProgress]);
 
     return (
-        <div
-            ref={scrollRef}
-            className='section-container h-screen w-full flex flex-col relative'
+        <section
+            ref={sectionRef}
+            className='relative z-0 w-full min-h-[170vh] bg-zinc-950'
         >
-            <Globe scrollYProgress={smoothedScroll} />
-            <ListAnimatedOnScroll
-                scrollYProgress={smoothedScroll}
-                // globeParentScrollRef={globeParentScrollRef}
-            />
-        </div>
+            <div className='sticky top-0 h-screen w-full overflow-hidden'>
+                <Globe scrollYProgress={smoothedScroll} />
+                <ListAnimatedOnScroll
+                    scrollYProgress={smoothedScroll}
+                    onInvertCursor={onInvertCursor}
+                />
+            </div>
+        </section>
     );
 };
 

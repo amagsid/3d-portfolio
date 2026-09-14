@@ -26,11 +26,54 @@ body {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
     background: #ec4e39;
     z-index: 1000;
+}
+
+.cursorFlashlight {
+    background: radial-gradient(
+        circle,
+        rgba(18, 18, 18, 0.5) 28%,
+        rgba(18, 18, 18, 0.18) 56%,
+        transparent 74%
+    );
+}
+
+.cursorFlashlight::after {
+    content: '';
     position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.28;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+    animation: grainCrawl 1.8s linear infinite;
+    mask-image: radial-gradient(circle, #000 40%, transparent 72%);
+    -webkit-mask-image: radial-gradient(circle, #000 40%, transparent 72%);
+}
+
+.cursorInvert {
+    background: #ec4e39;
+    mix-blend-mode: difference;
+}
+
+.cursorInvert::after {
+    display: none;
+}
+
+@keyframes grainCrawl {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 120px 80px;
+    }
 }
 
 @layer utilities {

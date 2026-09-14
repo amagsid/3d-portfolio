@@ -1,19 +1,16 @@
 'use client';
-import { useRef, useEffect } from 'react';
-import Main from './sections/Main';
+import { useRef, useState } from 'react';
+import Main from './Sections/Main';
 import AboutMe from './Sections/AboutMe';
 import Clients from './Sections/Clients';
+import Contact from './Sections/Contact';
 import NavigationUI from './Sections/NavigationUI';
-import { useScroll, useMotionValueEvent, motion } from 'framer-motion';
-import useMousePosition from './hooks/useMousePosition';
+import Cursor from './components/Cursor';
 
 export default function Home() {
-    //scroll progress to track scroll to rotate earth shape
-    //work on tracking the parent div of the cabvas instead of the most outer div
-    const globeParentScrollRef = useRef(); // Ref for the scrollable div
-    const { x, y } = useMousePosition();
-
-    const cursorSize = 25; // Adjust this if your cursor size changes
+    const globeParentScrollRef = useRef();
+    const [flashlight, setFlashlight] = useState(false);
+    const [invert, setInvert] = useState(false);
 
     return (
         <div
@@ -24,29 +21,26 @@ export default function Home() {
             
             h-screen  snap-mandatory bg-zinc-950  text-white'
         >
-            <motion.div
-                animate={{ x: x - cursorSize / 2, y: y - cursorSize / 2 }}
-                className='cursor'
-            ></motion.div>
+            <Cursor flashlight={flashlight} invert={invert} />
             <NavigationUI />
             <div className=' snap-center align-center flex items-center justify-center sm  w-screen h-screen sm:h-[120vh]'>
                 <Main />
             </div>
-            <div className='snap-center align-center flex  w-screen h-screen '>
+            <div className='snap-start w-screen'>
                 <AboutMe
                     globeParentScrollRef={globeParentScrollRef}
-                    x={x}
-                    y={y}
+                    onFlashlight={setFlashlight}
                 />
             </div>
-            <div className='snap-center align-center w-screen h-screen '>
-                <Clients globeParentScrollRef={globeParentScrollRef} />
+            <div className='snap-start w-screen'>
+                <Clients
+                    globeParentScrollRef={globeParentScrollRef}
+                    onInvertCursor={setInvert}
+                />
             </div>
-            <div className='snap-center align-center  w-screen h-screen '>
-                4
+            <div className='snap-center align-center w-screen h-screen'>
+                <Contact globeParentScrollRef={globeParentScrollRef} />
             </div>
         </div>
-
-        // <Footer />
     );
 }

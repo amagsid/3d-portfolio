@@ -1,8 +1,7 @@
-import { motion } from 'framer-motion-3d';
 import { MotionConfig } from 'framer-motion';
 import { useRef, useLayoutEffect } from 'react';
 import { transition } from './settings';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useSmoothTransform } from './use-smooth-transform';
 import * as THREE from 'three';
 
@@ -26,25 +25,15 @@ export function Shapes({ isHover, isPress, mouseX, mouseY }) {
         >
             <Camera mouseX={mouseX} mouseY={mouseY} />
             <MotionConfig transition={transition}>
-                <motion.group
-                    center={[0, 0, 0]}
-                    rotation={[lightRotateX, lightRotateY, 0]}
-                >
+                <LightRig rotateX={lightRotateX} rotateY={lightRotateY}>
                     <Lights />
-                </motion.group>
-                <motion.group
-                    initial={false}
-                    animate={isHover ? 'hover' : 'rest'}
-                    dispose={null}
-                    variants={{
-                        hover: { z: isPress ? -0.9 : 0 },
-                    }}
-                >
+                </LightRig>
+                <group dispose={null} position={[0, 0, isHover && isPress ? -0.9 : 0]}>
                     <Sphere />
                     <Cone />
                     <Torus />
                     <Icosahedron />
-                </motion.group>
+                </group>
             </MotionConfig>
         </Canvas>
     );
@@ -98,71 +87,51 @@ export function Lights() {
     );
 }
 
+function LightRig({ rotateX, rotateY, children }) {
+    const groupRef = useRef(null);
+
+    useFrame(() => {
+        if (!groupRef.current) return;
+        groupRef.current.rotation.x = rotateX.get();
+        groupRef.current.rotation.y = rotateY.get();
+    });
+
+    return <group ref={groupRef}>{children}</group>;
+}
+
 export function Sphere() {
     return (
-        <motion.mesh position={[-0.5, -0.5, 0]} variants={{ hover: { z: 2 } }}>
+        <mesh position={[-0.5, -0.5, 0]}>
             <sphereGeometry args={[0.4]} />
             <Material />
-        </motion.mesh>
+        </mesh>
     );
 }
 
 export function Cone() {
     return (
-        <motion.mesh
-            position={[-0.8, 0.4, 0]}
-            rotation={[-0.5, 0, -0.3]}
-            variants={{
-                hover: {
-                    z: 1.1,
-                    x: -1.5,
-                    rotateX: -0.2,
-                    rotateZ: 0.4,
-                },
-            }}
-        >
+        <mesh position={[-0.8, 0.4, 0]} rotation={[-0.5, 0, -0.3]}>
             <coneGeometry args={[0.3, 0.6, 20]} />
             <Material />
-        </motion.mesh>
+        </mesh>
     );
 }
 
 export function Torus() {
     return (
-        <motion.mesh
-            position={[0.1, 0.4, 0]}
-            rotation={[-0.5, 0.5, 0]}
-            variants={{
-                hover: {
-                    y: 0.5,
-                    z: 2,
-                    rotateY: -0.2,
-                },
-            }}
-        >
+        <mesh position={[0.1, 0.4, 0]} rotation={[-0.5, 0.5, 0]}>
             <torusGeometry args={[0.2, 0.1, 10, 50]} />
             <Material />
-        </motion.mesh>
+        </mesh>
     );
 }
 
 export function Icosahedron() {
     return (
-        <motion.mesh
-            position={[1.1, 0, 0]}
-            rotation-z={0.5}
-            variants={{
-                hover: {
-                    x: 1.8,
-                    z: 0.6,
-                    y: 0.6,
-                    rotateZ: -0.5,
-                },
-            }}
-        >
+        <mesh position={[1.1, 0, 0]} rotation={[0, 0, 0.5]}>
             <icosahedronGeometry args={[0.7, 0]} />
             <Material />
-        </motion.mesh>
+        </mesh>
     );
 }
 
@@ -211,12 +180,15 @@ function Camera({ mouseX, mouseY, ...props }) {
         return cameraX.onChange(() => camera.lookAt(scene.position));
     }, [cameraX]);
 
+    useFrame(() => {
+        if (!cameraRef.current) return;
+        cameraRef.current.position.x = cameraX.get();
+        cameraRef.current.position.y = cameraY.get();
+        camera.lookAt(scene.position);
+    });
+
     return (
-        <motion.perspectiveCamera
-            ref={cameraRef}
-            fov={90}
-            position={[cameraX, cameraY, 3.8]}
-        />
+        <perspectiveCamera ref={cameraRef} fov={90} position={[0, 0, 3.8]} />
     );
 }
 

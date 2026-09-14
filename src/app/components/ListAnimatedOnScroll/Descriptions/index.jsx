@@ -1,23 +1,24 @@
+import MagneticTitle from '../MagneticTitle';
 import styles from './style.module.scss';
 
-const Descriptions = ({ data, selectedProject, title, description, i }) => {
-    const crop = (string, maxLength) => {
-        return string.substring(0, maxLength);
-    };
+const Descriptions = ({ selected, title, description, variant }) => {
+    const isNested = variant === 'nested';
 
     return (
         <div className={styles.descriptions}>
             <div
-                key={i}
-                className={styles.description}
+                className={
+                    isNested
+                        ? `${styles.description} ${styles.nested}`
+                        : styles.description
+                }
                 style={{
-                    clipPath:
-                        selectedProject == i
-                            ? 'inset(0 0 0)'
-                            : 'inset(50% 0 50%',
+                    clipPath: selected ? 'inset(0 0 0)' : 'inset(50% 0 50%)',
                 }}
             >
-                <p className='pl-24'>{title}</p>
+                <p style={{ pointerEvents: selected ? 'auto' : 'none' }}>
+                    <MagneticTitle text={title} amount={isNested ? 4 : 6} />
+                </p>
                 <p>{description}</p>
             </div>
         </div>

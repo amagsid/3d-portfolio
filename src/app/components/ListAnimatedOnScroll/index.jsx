@@ -1,54 +1,63 @@
 'use client';
-import { useState } from 'react';
-import Titles from './titles';
-import styles from './style.module.scss';
+import Titles from './Titles';
 
-const ListAnimatedOnScroll = ({ scrollYProgress }) => {
+const ListAnimatedOnScroll = ({ scrollYProgress, onInvertCursor }) => {
     const data = [
         {
             title: 'Carhartt',
+            tag: 'Now',
             description:
-                'Working on the Next-Generation HMI Experience without no driving experience.',
-            speed: 0.5,
+                'Built global web interfaces for the hardworking people Carhartt exists to serve and protect.',
+            href: 'https://www.carhartt.com',
         },
         {
-            title: 'Booking.com',
+            title: 'Ambassadors',
+            tag: 'Agency',
             description:
-                'Working on the Next-Generation HMI Experience without no driving experience.',
-            speed: 0.5,
+                'Helped Brand automate and scale up their creative content production process.',
+            href: 'https://www.ambassadors.com',
+            clients: [
+                {
+                    title: 'Booking.com',
+                    description:
+                        'Helped Booking template and scale up its marketing material to hundreds of markets worldwide',
+                    href: 'https://www.booking.com',
+                },
+                {
+                    title: 'BOL',
+                    description:
+                        'Developed the Future of UFC Sports Ecosystem despite not being a sports fan.',
+                    href: 'https://www.bol.com',
+                },
+                {
+                    title: 'Squarespace',
+                    description:
+                        'Defined the visual concept and design language for the Lincoln Zephyr 2022 but never seen it in real life.',
+                    href: 'https://www.squarespace.com',
+                },
+            ],
         },
         {
-            title: 'BOL',
+            title: 'Project V',
+            tag: 'Previous',
             description:
-                'Developed the Future of UFC Sports Ecosystem despite not being a sports fan.',
-            speed: 0.5,
+                'Where my UI/UX design journey began and my skills were put to the test.',
+            href: 'https://www.projectv.com',
         },
         {
-            title: 'SquareSpace',
+            title: 'Wall-O',
+            tag: 'Personal',
             description:
-                'Defined the visual concept and design language for the Lincoln Zephyr 2022 but never seen it in real life.',
-            speed: 0.67,
-        },
-        {
-            title: 'N26',
-            description:
-                'Designed a 1M+ users product utilizing my best personal experience: sleeping.',
-            speed: 0.8,
-        },
-        {
-            title: 'Dyson',
-            description:
-                'I was just one person on a massive team that created an entire Royal Caribbean eco-system.',
-            speed: 0.8,
+                'An dashboard tool to help event mangers manage events and merket then through theirattendees.',
         },
     ];
 
     return (
-        <div className='absolute w-full'>
+        <div className='absolute inset-0 z-[2]'>
             <Titles
                 data={data}
-                description={data.description}
                 scrollYProgress={scrollYProgress}
+                onInvertCursor={onInvertCursor}
             />
         </div>
     );
