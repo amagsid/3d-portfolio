@@ -113,7 +113,7 @@ const Contact = ({ globeParentScrollRef }) => {
                 <nav className={styles.socials} aria-label='Social'>
                     <a
                         className={styles.social}
-                        href='https://www.linkedin.com/in/ahmadsaeed'
+                        href='https://www.linkedin.com/in/ahmad-m-s/'
                         target='_blank'
                         rel='noopener noreferrer'
                     >
@@ -121,7 +121,7 @@ const Contact = ({ globeParentScrollRef }) => {
                     </a>
                     <a
                         className={styles.social}
-                        href='https://github.com/ahmadsaeed'
+                        href='https://github.com/amagsid'
                         target='_blank'
                         rel='noopener noreferrer'
                     >
