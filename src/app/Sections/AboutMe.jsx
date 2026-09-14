@@ -6,6 +6,7 @@ import ParagraphAnimatedOnscroll from '../components/ParagraphAniumatedOnScroll'
 import styles from './AboutMe.module.scss';
 
 const SHOW_PORTRAIT = false;
+const SHOW_SKILLS = false;
 
 const AboutMe = ({ globeParentScrollRef, onFlashlight }) => {
     const sectionRef = useRef(null);
@@ -98,7 +99,9 @@ const AboutMe = ({ globeParentScrollRef, onFlashlight }) => {
                     strong focus on crafting seamless digital experiences and
                     user engagement
                 </ParagraphAnimatedOnscroll>
-                <p className={styles.skills}>Skills and technologies</p>
+                {SHOW_SKILLS ? (
+                    <p className={styles.skills}>Skills and technologies</p>
+                ) : null}
             </div>
         </section>
     );
