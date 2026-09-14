@@ -13,7 +13,7 @@
     padding: 4vh 7vw 12vh;
 }
 
-.sticky > :not(.portraitWrap) {
+.sticky > :not(.portraitWrap):not(.progress) {
     position: relative;
     z-index: 1;
 }
